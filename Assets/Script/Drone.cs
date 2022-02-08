@@ -16,8 +16,12 @@ public class Drone : MonoBehaviour
     {
         //Tentavive de le faire monter droit si l'aimant n'est pas actif, surement besoin de quatre forces pour équilibrer
         GameObject Arduino = GameObject.Find("Arduino");
-        if(Arduino.GetComponent<Arduino>().docked == false)
+        if(Arduino.GetComponent<Arduino>().docked == false){
             m_Rigidbody.AddForce(transform.up * 1);
+        }else{
+            m_Rigidbody.AddForce(transform.up * 0);
+        }
+            
         
     }
 }
