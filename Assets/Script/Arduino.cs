@@ -4,23 +4,34 @@ using UnityEngine;
 
 public class Arduino : MonoBehaviour
 {
-    public float magnetForce = 10;
+    public float magnetForce = 500;
     public bool docked = false;
-    public float TriggerDistance = 2;
+    public float TriggerDistance = 0.5f;
     // Start is called before the first frame update
     void Start()
     {
         
     }
-
+    
+    void OnCollisionEnter(Collision collision) {
+        if(collision.gameObject.name =="Plaque"){
+            Debug.Log("Hit magnet");
+            collision.gameObject.transform.parent = gameObject.transform;
+            docked = true;
+        }
+        
+    }
+    /*
+    
     // Update is called once per frame
     void FixedUpdate()
     {
         RaycastHit hit;
         
         // Does the ray intersect any objects excluding the player layer
-        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.up), out hit, TriggerDistance))
+        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.up), out hit, TriggerDistance) && hit.collider.gameObject.name =="Plaque")
         {
+            /*
             Vector3 direction = hit.point - transform.position;
             direction.Normalize ();
 
@@ -28,10 +39,15 @@ public class Arduino : MonoBehaviour
 
             gameObject.GetComponent<Rigidbody>().velocity = (hit.transform.position - (gameObject.GetComponent<Rigidbody>().transform.position + gameObject.GetComponent<Rigidbody>().centerOfMass)) * magnetForce * Time.deltaTime;
 
+            //hit.transform.parent = gameObject.transform;
+
             Debug.DrawRay(transform.position, transform.TransformDirection(direction) * hit.distance, Color.green);
 
             Debug.Log("Did Hit");
 
+            docked = true;
+            Debug.Log("Hit magnet");
+            hit.transform.parent = gameObject.transform;
             docked = true;
         }
         else
@@ -44,5 +60,5 @@ public class Arduino : MonoBehaviour
 
         }
         
-    }
+    }*/
 }
