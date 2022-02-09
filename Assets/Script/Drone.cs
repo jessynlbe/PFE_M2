@@ -8,7 +8,6 @@ public class Drone : MonoBehaviour
     GameObject Arduino;
     GameObject UIManager;
 
-    public float magnetForce = 500;
     public bool docked = false;
     public float TriggerDistance = 0.5f;
     // Start is called before the first frame update
@@ -32,13 +31,13 @@ public class Drone : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // if(UIManager.GetComponent<UIManager>().launched == true){
+        if(UIManager.GetComponent<UIManager>().launched == true){
             if(docked == false){
-                m_Rigidbody.AddForce(transform.up * 1);
+                m_Rigidbody.AddForce(transform.up * 5);
             }else{
                 m_Rigidbody.AddForce(transform.up * 0);
             }
-        // }        
+        }        
         
             
         
