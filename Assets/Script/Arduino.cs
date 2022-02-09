@@ -14,16 +14,18 @@ public class Arduino : MonoBehaviour
         m_Rigidbody = GetComponent<Rigidbody>();
     
     }
+
     
     void OnCollisionEnter(Collision collision) {
         if(collision.gameObject.name =="Plaque"){
-            Debug.Log("Hit magnet");
-            collision.gameObject.transform.parent = gameObject.transform;
+            //Debug.Log("Hit magnet");
+            //collision.gameObject.transform.parent = gameObject.transform;
             m_Rigidbody.AddForce(transform.up * 0);
             docked = true;
         }
         
     }
+
     /*
     
     // Update is called once per frame
