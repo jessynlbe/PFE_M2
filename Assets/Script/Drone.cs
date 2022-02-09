@@ -32,13 +32,13 @@ public class Drone : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(UIManager.GetComponent<UIManager>().launched == true){
+        // if(UIManager.GetComponent<UIManager>().launched == true){
             if(docked == false){
                 m_Rigidbody.AddForce(transform.up * 1);
             }else{
                 m_Rigidbody.AddForce(transform.up * 0);
             }
-        }        
+        // }        
         
             
         
