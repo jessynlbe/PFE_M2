@@ -7,7 +7,7 @@ public class Drone : MonoBehaviour
     Rigidbody m_Rigidbody;
     GameObject Arduino;
     GameObject ElectroAimant;
-
+    List<GameObject> fans;
     GameObject UI;
     GameObject UIManager;
     public bool docked = false;
@@ -21,6 +21,12 @@ public class Drone : MonoBehaviour
         ElectroAimant = GameObject.Find("ElectroAimant");
         UIManager = GameObject.Find("UIManager");
         m_Rigidbody = GetComponent<Rigidbody>();
+
+        fans = new List<GameObject>();
+        fans.Add(GameObject.Find("fan.001"));
+        fans.Add(GameObject.Find("fan.002"));
+        fans.Add(GameObject.Find("fan.003"));
+        fans.Add(GameObject.Find("fan.004"));
     }
 
     // F = m*a
@@ -30,7 +36,7 @@ public class Drone : MonoBehaviour
         if(UIManager.GetComponent<UIManager>().launched == true){
             float upForce = (m_Rigidbody.mass * 9.81f) * 2f; // Double la force necessaire pour compenser la gravité
             if(docked == false){
-
+                playMotors();
                 if(getDistance() > TriggerDistance){
                     m_Rigidbody.AddForce(Vector3.up * upForce);
                 }
@@ -40,6 +46,7 @@ public class Drone : MonoBehaviour
 
             }
             else if(undocked == true){
+                playMotors();
                 m_Rigidbody.AddForce(Vector3.up * -upForce);
             }
             else{
@@ -49,11 +56,13 @@ public class Drone : MonoBehaviour
                 m_Rigidbody.isKinematic = true;
                 UIManager.GetComponent<UIManager>().setMotorsText("Motors : Off");
                 UIManager.GetComponent<UIManager>().setMagnetText("Magnet : On");
+
+                stopMotors();
             }
         }  
 
         UIManager.GetComponent<UIManager>().setDistanceText( getDistance() );
-        
+
     }
 
     float getDistance(){
@@ -63,5 +72,17 @@ public class Drone : MonoBehaviour
         Physics.Raycast(pos , Vector3.up * 100f , out hit , Mathf.Infinity , layerMask);
         Debug.DrawRay(pos, transform.TransformDirection(Vector3.up) * hit.distance, Color.yellow);
         return hit.distance;
+    }
+
+    void stopMotors(){
+        foreach(GameObject fan in fans){
+            fan.GetComponent<Animator>().enabled = false;
+        }
+    }
+
+    void playMotors(){
+        foreach(GameObject fan in fans){
+            fan.GetComponent<Animator>().enabled = true;
+        }
     }
 }

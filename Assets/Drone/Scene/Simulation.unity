@@ -843,20 +843,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0.0070108324, y: 0.00031320006, z: 0.07648116}
---- !u!114 &366067988
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 366067984}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: adb4805b13cf482bf9759a9225203d10, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  drone: {fileID: 366067986}
-  upForce: 0
 --- !u!4 &366067991 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 762800751603335570, guid: ce1e8e032db7c26449ae1d260b060f0c, type: 3}
