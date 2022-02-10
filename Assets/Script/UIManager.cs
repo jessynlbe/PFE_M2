@@ -12,7 +12,7 @@ public class UIManager : MonoBehaviour
 		Time.timeScale = 1;
         
 	}
-    
+
     public void Launch()  
     {
         launched = true;
@@ -22,8 +22,11 @@ public class UIManager : MonoBehaviour
     public void Undock()  
     {
         GameObject Drone = GameObject.Find("Drone");
-        Drone.transform.parent = null;
+        Drone.GetComponent<Drone>().undocked = true;
         Drone.GetComponent<Rigidbody>().isKinematic = false;
+        Drone.GetComponent<Rigidbody>().useGravity = true;
+        Debug.Log("Undock");
+        
     } 
 
     //Quitte l'application

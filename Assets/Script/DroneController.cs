@@ -12,14 +12,20 @@ public class DroneController : MonoBehaviour
     }
 
     void FixedUpdate(){
+        float dist = getDistance();
         UpdateForce();
 
-        drone.AddRelativeForce(Vector3.up * upForce);
+        if(dist > 10f){
+            drone.AddRelativeForce(Vector3.up * upForce);
+        }
+        else{
+            drone.velocity = Vector3.zero;
+        }
     }
 
     void UpdateForce(){
         if(Input.GetKey(KeyCode.UpArrow)){
-            upForce = 450f;
+            upForce = 4.8f;
         }
         else if(Input.GetKey(KeyCode.DownArrow)){
             upForce = -200f;
@@ -27,5 +33,14 @@ public class DroneController : MonoBehaviour
         else{
             upForce = 0f;
         }
+    }
+
+    float getDistance(){
+        RaycastHit hit;
+        int layerMask = 1 << 6;
+        Physics.Raycast(transform.position , Vector3.up * 100f , out hit , Mathf.Infinity , layerMask);
+        Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.up) * hit.distance, Color.red);
+
+        return hit.distance;
     }
 }
