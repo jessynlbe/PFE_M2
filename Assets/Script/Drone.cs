@@ -7,13 +7,15 @@ public class Drone : MonoBehaviour
     Rigidbody m_Rigidbody;
     GameObject Arduino;
     GameObject ElectroAimant;
+
+    GameObject UI;
     GameObject UIManager;
     public bool docked = false;
     public bool undocked = false;
     public float TriggerDistance = 0.5f;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         Arduino = GameObject.Find("Arduino");
         ElectroAimant = GameObject.Find("ElectroAimant");
@@ -23,7 +25,7 @@ public class Drone : MonoBehaviour
 
     // F = m*a
     // gravity = -9,81 --> F = -9.81 * m
-    void FixedUpdate()
+    void Update()
     {
         if(UIManager.GetComponent<UIManager>().launched == true){
             float upForce = (m_Rigidbody.mass * 9.81f) * 2f; // Double la force necessaire pour compenser la gravité
@@ -45,8 +47,12 @@ public class Drone : MonoBehaviour
                 m_Rigidbody.velocity = Vector3.zero;
                 m_Rigidbody.useGravity = false;
                 m_Rigidbody.isKinematic = true;
+                UIManager.GetComponent<UIManager>().setMotorsText("Motors : Off");
+                UIManager.GetComponent<UIManager>().setMagnetText("Magnet : On");
             }
-        }        
+        }  
+
+        UIManager.GetComponent<UIManager>().setDistanceText( getDistance() );
         
     }
 

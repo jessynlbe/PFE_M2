@@ -15,8 +15,11 @@ public class UIManager : MonoBehaviour
 
     public void Launch()  
     {
+        GameObject Drone = GameObject.Find("Drone");
+        Drone.GetComponent<Drone>().docked = false;
+        Drone.GetComponent<Drone>().undocked = false;
         launched = true;
-        Debug.Log("BEGIN");
+        setMotorsText("Motors : On");
     } 
 
     public void Undock()  
@@ -25,7 +28,8 @@ public class UIManager : MonoBehaviour
         Drone.GetComponent<Drone>().undocked = true;
         Drone.GetComponent<Rigidbody>().isKinematic = false;
         Drone.GetComponent<Rigidbody>().useGravity = true;
-        Debug.Log("Undock");
+        setMagnetText("Magnet : Off");
+        setMotorsText("Motors : On");
         
     } 
 
@@ -33,4 +37,19 @@ public class UIManager : MonoBehaviour
     public void Quit(){
 		Application.Quit();
 	}
+
+    public void setDistanceText(float distance){
+        string message = "Distance : " + distance.ToString();
+        GameObject.Find("distanceText").GetComponent<Text>().text = message;
+
+    }
+
+
+    public void setMagnetText(string value){
+        GameObject.Find("magnetText").GetComponent<Text>().text = value;
+    }
+
+    public void setMotorsText(string value){
+        GameObject.Find("motorsText").GetComponent<Text>().text = value;
+    }
 }
