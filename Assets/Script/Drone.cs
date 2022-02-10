@@ -12,7 +12,7 @@ public class Drone : MonoBehaviour
     GameObject UIManager;
     public bool docked = false;
     public bool undocked = false;
-    public float TriggerDistance = 0.5f;
+    public float TriggerDistance = 0.3f;
 
     // Start is called before the first frame update
     void Awake()

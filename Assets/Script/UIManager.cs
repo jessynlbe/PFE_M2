@@ -39,7 +39,8 @@ public class UIManager : MonoBehaviour
 	}
 
     public void setDistanceText(float distance){
-        string message = "Distance : " + distance.ToString();
+        int distanceInt = (int) distance;
+        string message = "Distance : " + distanceInt.ToString();
         GameObject.Find("distanceText").GetComponent<Text>().text = message;
 
     }
