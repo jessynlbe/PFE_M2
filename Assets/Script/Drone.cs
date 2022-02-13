@@ -12,7 +12,22 @@ public class Drone : MonoBehaviour
     GameObject UIManager;
     public bool docked = false;
     public bool undocked = false;
+    public bool landing = true;
     public float TriggerDistance = 0.3f;
+
+
+    void OnCollisionEnter(Collision col){
+        if(col.gameObject.name == "Plane"){
+            stopMotors();
+            landing = true;
+        }
+    }
+
+    void OnCollisionExit(Collision col){
+        if(col.gameObject.name == "Plane"){
+            landing = false;
+        }
+    }
 
     // Start is called before the first frame update
     void Awake()
@@ -34,6 +49,16 @@ public class Drone : MonoBehaviour
     void Update()
     {
         if(UIManager.GetComponent<UIManager>().launched == true){
+            
+            if(landing == false){
+                playMotors();
+                UIManager.GetComponent<UIManager>().setMotorsText("Motors : On");
+            }
+            else{
+                stopMotors();
+                UIManager.GetComponent<UIManager>().setMotorsText("Motors : Off");
+            }
+            
             float upForce = (m_Rigidbody.mass * 9.81f) * 2f; // Double la force necessaire pour compenser la gravité
             if(docked == false){
                 playMotors();
@@ -46,7 +71,6 @@ public class Drone : MonoBehaviour
 
             }
             else if(undocked == true){
-                playMotors();
                 m_Rigidbody.AddForce(Vector3.up * -upForce);
             }
             else{
